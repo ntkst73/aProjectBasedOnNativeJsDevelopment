@@ -1,0 +1,42 @@
+/node_modules/
+/dist/
+
+#CVS
+.CVS
+.git
+.hg
+.idea
+.svn
+
+# Файлы офиса
+*.doc
+*.doxc
+*.xls
+*.xlsx
+*.ppt
+*.pttx
+
+# текстовые и прочие файлы в том числе файлы бд
+*.xml
+*.txt
+*.dt
+*.psd
+*.pdf
+*.log
+*.sql
+!/backups/*.sql
+
+# архивы
+*.tar.gz
+*.tar
+*.zip
+*.7z
+*.cab
+*.exe
+*.rar
+*.pak
+*.zipx
+
+#Сборные временные файлы
+package-lock.json
+src/js/package-lock.json
