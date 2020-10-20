@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --mode development",
-    "buuld": "webpack --mode production",
-    "start": "webpack serve"
+    "build": "webpack --mode production",
+    "start": "webpack serve",
+    "lint": "eslint ."
   },
   "author": "KOSHARNYY",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.0",
     "eslint": "^7.11.0",
+    "file-loader": "^6.1.1",
     "html-webpack-plugin": "^4.5.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.1.3",

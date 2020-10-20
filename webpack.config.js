@@ -9,6 +9,11 @@ module.exports = {
         publicPath: "/",
         path: path.resolve(__dirname, 'dist')
     },
+    resolve: {
+        alias: {
+          images: path.resolve(__dirname, 'src/images/'),
+        },
+    },
     plugins: [
         new HTMLWebpackPlugin({
             template: './src/index.html'
@@ -18,9 +23,16 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(png|svg|jpg|gif|jpeg)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'images/[name].[ext]',
+                },
+            },
+            {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
-            }
+            },
         ]
     },
     devServer: {
