@@ -131,4 +131,10 @@ html, body {
     }
     input {
     background: #eee;
-    }	
+    }
+
+    .b-menu__item {
+        padding: 10px !important;
+        width: 100px;
+        font-size: 18px;
+    }
