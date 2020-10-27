@@ -138,3 +138,20 @@ html, body {
         width: 100px;
         font-size: 18px;
     }
+
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        margin-right: 4px;
+        margin-left: 4px;
+        text-align: center;
+    }
+
+    .card:hover {
+        cursor: pointer;
+    }
