@@ -1,33 +1,21 @@
 import './styles/style.css';
-//стили
-
 import image from './images/img.gif';
 import image1 from './images/magnify.png';
-//картинки
-
-let linkMenu = document.querySelectorAll('.js-menu-item');
-let card = document.querySelectorAll('.card');
+import { objLink } from './scripts/data.js';
 
 
-let objLink = {
-    name1: 'main',
-    name2: 'services',
-    name3: 'product',
-    name4: 'about',
-    name5: 'contact'
-};
+const linkMenu = document.querySelectorAll('.js-menu-item');
+const card = document.querySelectorAll('.card');
 
-
-var  objKeys = Object.keys(objLink);
-//берем ключи
+let  objKeys = Object.keys(objLink);
 
 linkMenu.forEach(function (item, index) {
-    var oneName = objLink[objKeys[index]];
+    let oneName = objLink[objKeys[index]];
     item.innerText = oneName;
-    item.addEventListener('click', addClass,);
+    item.addEventListener('click', toggleClass,);
 });
  
-function addClass() {
+function toggleClass() {
     this.classList.toggle("active");
 }
 card.forEach(function (item, index) {
@@ -36,9 +24,32 @@ card.forEach(function (item, index) {
     });
 });
 
+let h = document.createElement('h1');
+h.className = "title";
+h.innerHTML  = 'MediaSoft';
 
+const content = document.getElementById('content');
+content.prepend(h);
 
+console.log('Запрос данных');
+const req = new Promise(function(resolve, reject){
+    setTimeout(() => {
+        console.log('Подготовка данных...');
+    
+        const product = {
+            name: 'Phone',
+            price: 10000,
+        };
+    
+        resolve(product);
+    },2000);  
+});
 
-
+req.then((product) => {
+    setTimeout(() => {
+        product.status = 'order';
+        console.log(product);
+    }, 2000);
+});
 
 
