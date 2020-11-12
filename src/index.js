@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 modalCloseBtn = document.querySelector('[data-close]');
 
         function closeModal() {
-            modal.classList.add('hide');
+            modal.classList.add('hidden');
             modal.classList.remove('show');
             document.body.style.overflow = '';
         }
