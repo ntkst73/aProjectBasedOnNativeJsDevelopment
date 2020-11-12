@@ -11,7 +11,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-          images: path.resolve(__dirname, 'src/images/'),
+          images: path.resolve(__dirname, 'src/assets/'),
         },
     },
     plugins: [
@@ -26,7 +26,7 @@ module.exports = {
                 test: /\.(png|svg|jpg|gif|jpeg)$/,
                 loader: 'file-loader',
                 options: {
-                    name: 'images/[name].[ext]',
+                    name: 'assets/images/[name].[ext]',
                 },
             },
             {
