@@ -15,49 +15,9 @@ import icon5 from './assets/icons/logo.svg';
 import icon6 from './assets/icons/right.svg';
 import icon7 from './assets/icons/switch.svg';
 import icon8 from './assets/icons/veg.svg';
-import { objLink } from './scripts/data.js';
-
-
-
 
 window.addEventListener('DOMContentLoaded', () => {
-    const cardsContainer = document.querySelector('.js-container');
-
-
-
-        let items = [
-            {
-                src: 'assets/images/vegy.jpg',
-                subtitle: 'Меню "Фитнес"',
-                decr: 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!"',
-                price: '<span>229</span>',
-            },
-            {
-                src: 'assets/images/elite.jpg',
-                subtitle: 'Меню "Премиум"',
-                decr: 'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
-                price: '<span>550</span>'
-            },
-            {
-                src: 'assets/images/post.jpg',
-                subtitle: 'Меню "Постное"',
-                decr: 'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-                price: '<span>430</span>'
-            }
-        ];
-
-        for(let  i = 0; i < items.length; i++) {
-            cardsContainer.innerHTML += `<div class="menu__item">
-            <img src="${items[i].src}">
-            <h3 class="menu__item-subtitle">${items[i].subtitle}"</h3>
-            <div class="menu__item-descr">${items[i].decr}</div>
-            <div class="menu__item-divider"></div>
-            <div class="menu__item-price">
-                <div class="menu__item-cost">Цена:</div>
-                <div class="menu__item-total"><span>${items[i].price}</span> грн/день</div>
-            </div> </div>`;
-        }
-
+    //имитация запроса с сервера
     console.log('Запрос данных');
     const req = new Promise(function(resolve, reject){
         setTimeout(() => {
@@ -79,7 +39,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     });
 
-
+    //табы
     const tabItem = document.querySelectorAll('.tabheader__item'),
         tabContent = document.querySelectorAll('.tabcontent'),
         tabParents = document.querySelector('.tabheader__items');
@@ -115,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
-
+        // модалка
         const   modalTrigger = document.querySelectorAll('[data-modal]'),
                 modal = document.querySelector('.modal'),
                 modalCloseBtn = document.querySelector('[data-close]');
@@ -128,8 +88,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
         function openModal() {
             modal.classList.add('show');
-            modal.classList.remove('hide');
+            modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            clearInterval(modalTimer);
         }
 
         modalTrigger.forEach(btn => {
@@ -143,7 +104,78 @@ window.addEventListener('DOMContentLoaded', () => {
                 closeModal();
             }
         });
-        
+
+        const  modalTimer = setTimeout(openModal, 5000);
+
+        function showModalByScroll() {
+            if (window.pageYOffset + document.documentElement.clientHeight > document.documentElement.scrollHeight) {
+                openModal();
+                window.removeEventListener('scroll', showModalByScroll);
+            }
+        }
+
+        window.addEventListener('scroll', showModalByScroll);
+
+    //Блок наше меню за день
+    class MenuCard {
+        constructor(src, alt , title, desc, price, parentSelector) {
+            this.src = src;
+            this.alt = alt;
+            this.title = title;
+            this.desc = desc;
+            this.price = price;
+            this.parent = document.querySelector(parentSelector);
+            this.transfer = 27;
+            this.changeToUAN();
+            
+        }
+
+        changeToUAN() {
+            this.price = this.price * this.transfer;
+        }
+
+        render() {
+            const element = document.createElement('div');
+            element.innerHTML = `
+            <div class="menu__item">
+                <img src="${this.src}" alt="${this.alt}">
+                <h3 class="menu__item-subtitle">${this.title}"</h3>
+                <div class="menu__item-descr">${this.desc}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Цена:</div>
+                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                </div> 
+            </div>
+            `;
+            this.parent.append(element);
+        }
+    }
+
+    new MenuCard(
+        "assets/images/vegy.jpg",
+        "vegu",
+        'Меню "Фитнес"',
+        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!"',
+        9,
+        '.menu .container'
+    ).render();
+
+    new MenuCard(
+        "assets/images/elite.jpg",
+        "premium",
+        'Меню "Премиум"',
+        'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
+        12,
+        '.menu .container'
+    ).render();
+
+    new MenuCard(
+        "assets/images/post.jpg",
+        "postnoe",
+        'Меню "Постное"',
+        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
+        16,
+        '.menu .container'
+    ).render();
 });
-
-
